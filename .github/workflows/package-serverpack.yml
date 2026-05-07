@@ -1,0 +1,77 @@
+name: Build ServerPack Package
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'modpack/**'
+  pull_request:
+    paths:
+      - 'modpack/**'
+
+jobs:
+  package-server:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Process Server Index and Get Version
+        id: server_info
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          # 1. 读取原始 index.json
+          index_path = Path('modpack/modrinth.index.json')
+          with open(index_path, 'r', encoding='utf-8') as f:
+              data = json.load(f)
+          
+          version = data['versionId']
+          # 将版本号写入环境变量供后续 Step 使用
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f"version={version}\n")
+
+          # 2. 核心逻辑：排除客户端模组 [C]
+          original_files = data['files']
+          server_files = [f for f in original_files if not f['path'].startswith('mods/[C]')]
+          data['files'] = server_files
+          
+          # 修改包名称以示区分
+          data['name'] = f"{data['name']} (服务端)"
+
+          # 3. 写回修改后的 index.json
+          with open(index_path, 'w', encoding='utf-8') as f:
+              json.dump(data, f, indent=2, ensure_ascii=False)
+          PY
+
+      - name: Clean Server Unnecessary Files
+        run: |
+          # 排除服务端不需要的 overrides 文件夹内容
+          rm -rf modpack/overrides/resourcepacks
+          rm -rf modpack/overrides/options.txt
+          rm -rf modpack/overrides/PCL
+          
+      - name: Package Server .mrpack
+        run: |
+          version="${{ steps.server_info.outputs.version }}"
+          cd modpack
+          # 打包为 zip，然后更名为 .mrpack
+          zip -r "../机械动力航空学-服务端-${version}.mrpack" .
+
+      - name: Create Release and Upload
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.server_info.outputs.version }}
+          name: Release ${{ steps.server_info.outputs.version }}
+          draft: false
+          prerelease: false
+          files: |
+            机械动力航空学-服务端-${{ steps.server_info.outputs.version }}.mrpack
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
