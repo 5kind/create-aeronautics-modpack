@@ -1911,6 +1911,17 @@
         "https://cdn.modrinth.com/data/HVnmMxH1/versions/836bPNGo/ComplementaryReimagined_r5.7.1.zip"
       ],
       "fileSize": 522970
+    },
+    {
+      "path": "mods/[C][万用皮肤补丁]CustomSkinLoader_Universal-14.28.jar",
+      "hashes": {
+        "sha1": "b2d9bf46f3d672e2bef26a8e6de55401a7c0818e",
+        "sha512": "0008fb0a91dd1e84d52162cfe96addb5f6aed3b76d426ea7305d7624e31f1894"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/idMHQ4n2/versions/9sCm2d9K/CustomSkinLoader_Universal-14.28.jar"
+      ],
+      "fileSize": 191666
     }
   ],
   "dependencies": {
