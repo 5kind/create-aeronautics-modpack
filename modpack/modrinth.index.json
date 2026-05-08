@@ -1922,6 +1922,29 @@
         "https://cdn.modrinth.com/data/idMHQ4n2/versions/9sCm2d9K/CustomSkinLoader_Universal-14.28.jar"
       ],
       "fileSize": 191666
+    },
+    {
+      "path": "mods/[A][车万女仆] touhoulittlemaid-1.5.2-neoforge+mc1.21.1.jar",
+      "hashes": {
+        "sha1": "d9e4de0c5deae4c54d360b493596847765beae10",
+        "sha512": "43d5c7e6c3e3c87733b04cfb269fde6711972180f70095b53e822dfabf261348"
+      },
+      "downloads": [
+        "https://cdn.modrinth.com/data/R0bDWFAW/versions/Dbjwcs2u/touhoulittlemaid-1.5.2-neoforge%2Bmc1.21.1.jar"
+      ],
+      "fileSize": 24399610
+    },
+    {
+      "path": "mods/[A][女仆摇曲柄] MaidUseHandCrank_1.5.4-neoforge_21.1.206-1.21.1.jar",
+      "hashes": {
+        "sha1": "03e3f3697bd48952577a38622b179140bf2a4ad6",
+        "sha512": "ebb340790e0b257da5548165cfe324d07939c39524e56037d67dfe5767185eb0"
+      },
+      "downloads":
+      [
+        "https://cdn.modrinth.com/data/kVNtrRcL/versions/Ng5hlSEF/MaidUseHandCrank_1.5.4-neoforge_21.1.206-1.21.1.jar"
+      ],
+      "fileSize": 152577
     }
   ],
   "dependencies": {
